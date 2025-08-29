@@ -42,7 +42,7 @@ export default function SignUp() {
   return (
     <div className="min-h-screen flex">
       {/* Left side (Form) */}
-      <div className="w-1/2 flex flex-col justify-center px-20">
+      <div className="w-1/2 flex flex-col justify-center px-40">
         <h1 className="text-3xl font-bold mb-2">Create your account</h1>
         <p className="text-gray-500 mb-8">
           Let’s get started with a 30 day free trial
