@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import useAuthStore from "./store/authStore";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
-// Page imports (we’ll create these soon)
+// Page imports
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import VerifyEmail from "./pages/VerifyEmail";
@@ -14,7 +14,7 @@ import ResetPassword from "./pages/ResetPassword";
 function App() {
   const initializeAuth = useAuthStore((state) => state.initializeAuth);
 
-  // When the app starts, check if user is already logged in (localStorage)
+  // On app start, check if user is already logged in (token in localStorage)
   useEffect(() => {
     initializeAuth();
   }, [initializeAuth]);
@@ -25,11 +25,11 @@ function App() {
         {/* Public routes */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/verify-email/:token" element={<VerifyEmail />} />
 
-        {/* Protected route (needs login) */}
+        {/* Protected routes (require login) */}
         <Route
           path="/dashboard"
           element={
@@ -39,7 +39,7 @@ function App() {
           }
         />
 
-        {/* Fallback (if someone types unknown URL, send them to Sign In) */}
+        {/* Fallback route */}
         <Route path="*" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
