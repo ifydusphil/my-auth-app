@@ -33,7 +33,7 @@ export default function VerifyEmail() {
 
         {/* Input boxes */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="flex space-x-3 justify-center">
+          <div className="flex space-x-3 justify-start">
             {code.map((digit, i) => (
               <input
                 key={i}
@@ -46,7 +46,7 @@ export default function VerifyEmail() {
             ))}
           </div>
 
-          <p className="text-gray-500 text-sm text-center">
+          <p className="text-gray-500 text-sm text-left">
             Didn’t get any code?{" "}
             <button
               type="button"
@@ -69,7 +69,7 @@ export default function VerifyEmail() {
       {/* Right side image */}
       <div className="w-1/2">
         <img
-          src="/images/verify-email-hero.jpg" // make sure to add your image here
+          src="/assets/verify-email-hero.jpg" // make sure to add your image here
           alt="verify"
           className="w-full h-screen object-cover"
         />
