@@ -2,11 +2,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast"; // ✅ Import toast
 import api from "../api/axios";
 import PasswordField from "../components/PasswordField";
 import Button from "../components/Button";
 
-// Validation schema
+// ✅ Validation schema
 const schema = yup.object().shape({
   newPassword: yup
     .string()
@@ -21,7 +22,7 @@ const schema = yup.object().shape({
 
 export default function ResetPassword() {
   const navigate = useNavigate();
-  const { token } = useParams(); // we expect /reset-password/:token route
+  const { token } = useParams(); // ✅ extract token from route (/reset-password/:token)
 
   const {
     register,
@@ -29,27 +30,35 @@ export default function ResetPassword() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  // ✅ Handle form submit
   const onSubmit = async (data) => {
     try {
       await api.post(`/auth/reset-password/${token}`, {
         password: data.newPassword,
       });
-      alert("✅ Password reset successful!");
-      navigate("/signin");
+
+      // Success toast
+      toast.success("✅ Password reset successful!");
+      navigate("/signin"); // redirect to login
     } catch (error) {
-      alert("❌ " + (error.response?.data?.message || "Reset failed"));
+      // Error toast
+      toast.error(error.response?.data?.message || "❌ Reset failed");
     }
   };
 
   return (
-    <div className="min-h-screen flex">
+    // 📱 Mobile: vertical stack | 💻 Desktop: split screen
+    <div className="min-h-screen flex flex-col md:flex-row">
+      
       {/* Left side (Form) */}
-      <div className="w-1/2 flex flex-col justify-center px-40">
+      {/* Full width on mobile, half width on desktop */}
+      <div className="w-full md:w-1/2 flex flex-col justify-center px-6 md:px-40 py-10">
         <h1 className="text-3xl font-bold mb-2">Reset your password</h1>
         <p className="text-gray-500 mb-8">
           Create a new strong password for your account.
         </p>
 
+        {/* ✅ Reset password form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* New Password */}
           <PasswordField
@@ -67,15 +76,16 @@ export default function ResetPassword() {
             error={errors.confirmPassword?.message}
           />
 
-          {/* Submit */}
+          {/* Submit button */}
           <Button>Reset Password</Button>
         </form>
       </div>
 
       {/* Right side (Hero image) */}
-      <div className="w-1/2 bg-purple-600 flex items-center justify-center">
+      {/* ❌ Hidden on mobile, ✅ visible on desktop */}
+      <div className="hidden md:flex w-1/2 bg-purple-600 items-center justify-center">
         <img
-          src="/assets/reset-password-hero.jpg" // Replace with your reset password hero image
+          src="/assets/reset-password-hero.jpg"
           alt="Reset password hero"
           className="object-cover h-full w-full"
         />
