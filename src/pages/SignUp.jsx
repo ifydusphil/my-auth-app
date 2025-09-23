@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import api from "../api/axios";
-import toast from "react-hot-toast"; // ✅ import toast
+import toast from "react-hot-toast"; // import toast
 
 import InputField from "../components/InputField";
 import PasswordField from "../components/PasswordField";
@@ -35,9 +35,9 @@ export default function SignUp() {
   const onSubmit = async (data) => {
     try {
       await api.post("/auth/signup", data);
-      toast.success("Verification email sent! ✅"); // success toast
+      toast.success("Verification email sent!"); // success toast
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong ❌"); // error toast
+      toast.error(error.response?.data?.message || "Something went wrong"); // error toast
     }
   };
 

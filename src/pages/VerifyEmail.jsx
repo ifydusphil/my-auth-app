@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import toast from "react-hot-toast"; // ✅ Import toast
+import toast from "react-hot-toast"; // Import toast
 import api from "../api/axios";
 
 export default function VerifyEmail() {
   const [code, setCode] = useState(["", "", "", "", "", ""]); // 6-digit code array
   const navigate = useNavigate();
-  const { token } = useParams(); // ✅ capture token from route (/verify-email/:token)
+  const { token } = useParams(); // capture token from route (/verify-email/:token)
 
-  // ✅ Handle typing inside each digit box
+  // Handle typing inside each digit box
   const handleChange = (value, index) => {
     if (/^[0-9]?$/.test(value)) {
       const newCode = [...code];
@@ -17,7 +17,7 @@ export default function VerifyEmail() {
     }
   };
 
-  // ✅ Join digits and submit
+  // Join digits and submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     const finalCode = code.join("");
@@ -26,10 +26,10 @@ export default function VerifyEmail() {
       // 🔵 Call backend to verify email with token + code
       await api.post(`/auth/verify-email/${token}`, { code: finalCode });
 
-      toast.success("✅ Email verified successfully!");
+      toast.success("Email verified successfully!");
       navigate("/signin"); // redirect to sign in page
     } catch (error) {
-      toast.error(error.response?.data?.message || "❌ Verification failed");
+      toast.error(error.response?.data?.message || "Verification failed");
     }
   };
 
@@ -46,7 +46,7 @@ export default function VerifyEmail() {
           We sent a 6-digit code to your email n********e@gmail.com.
         </p>
 
-        {/* ✅ Input + Form */}
+        {/* Input + Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Six digit boxes */}
           <div className="flex space-x-3 justify-start">
@@ -68,7 +68,7 @@ export default function VerifyEmail() {
             <button
               type="button"
               className="text-red-500 font-medium hover:underline"
-              onClick={() => toast("📩 Resend code triggered")} // ✅ toast instead of alert
+              onClick={() => toast("📩 Resend code triggered")} // toast instead of alert
             >
               Resend Code
             </button>
@@ -85,7 +85,7 @@ export default function VerifyEmail() {
       </div>
 
       {/* Right side image */}
-      {/* ❌ Hidden on mobile, ✅ shown only on desktop */}
+      {/* Hidden on mobile, shown only on desktop */}
       <div className="hidden md:flex w-1/2">
         <img
           src="/assets/verify-email-hero.jpg"

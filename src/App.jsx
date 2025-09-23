@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Toaster } from "react-hot-toast"; // ✅ Import toaster provider
+import { Toaster } from "react-hot-toast"; // Import toaster provider
 import useAuthStore from "./store/authStore";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
-// ✅ Import all pages
+// Import all pages
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import VerifyEmail from "./pages/VerifyEmail";
@@ -15,17 +15,17 @@ import ResetPassword from "./pages/ResetPassword";
 function App() {
   const initializeAuth = useAuthStore((state) => state.initializeAuth);
 
-  // ✅ Run once when the app starts: restore user/token from localStorage
+  // Run once when the app starts: restore user/token from localStorage
   useEffect(() => {
     initializeAuth();
   }, [initializeAuth]);
 
   return (
     <>
-      {/* ✅ Toaster provider: enables toast notifications globally */}
+      {/* Toaster provider: enables toast notifications globally */}
       <Toaster position="top-right" reverseOrder={false} />
 
-      {/* ✅ Router setup for navigating between pages */}
+      {/* Router setup for navigating between pages */}
       <BrowserRouter>
         <Routes>
           {/* ---------- Public routes ---------- */}

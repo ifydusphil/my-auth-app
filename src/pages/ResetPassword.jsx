@@ -2,12 +2,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
-import toast from "react-hot-toast"; // ✅ Import toast
+import toast from "react-hot-toast"; // Import toast
 import api from "../api/axios";
 import PasswordField from "../components/PasswordField";
 import Button from "../components/Button";
 
-// ✅ Validation schema
+// Validation schema
 const schema = yup.object().shape({
   newPassword: yup
     .string()
@@ -22,7 +22,7 @@ const schema = yup.object().shape({
 
 export default function ResetPassword() {
   const navigate = useNavigate();
-  const { token } = useParams(); // ✅ extract token from route (/reset-password/:token)
+  const { token } = useParams(); // extract token from route (/reset-password/:token)
 
   const {
     register,
@@ -30,7 +30,7 @@ export default function ResetPassword() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  // ✅ Handle form submit
+  // Handle form submit
   const onSubmit = async (data) => {
     try {
       await api.post(`/auth/reset-password/${token}`, {
@@ -38,11 +38,11 @@ export default function ResetPassword() {
       });
 
       // Success toast
-      toast.success("✅ Password reset successful!");
+      toast.success("Password reset successful!");
       navigate("/signin"); // redirect to login
     } catch (error) {
       // Error toast
-      toast.error(error.response?.data?.message || "❌ Reset failed");
+      toast.error(error.response?.data?.message || "Reset failed");
     }
   };
 
@@ -58,7 +58,7 @@ export default function ResetPassword() {
           Create a new strong password for your account.
         </p>
 
-        {/* ✅ Reset password form */}
+        {/* Reset password form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* New Password */}
           <PasswordField
@@ -82,7 +82,7 @@ export default function ResetPassword() {
       </div>
 
       {/* Right side (Hero image) */}
-      {/* ❌ Hidden on mobile, ✅ visible on desktop */}
+      {/* Hidden on mobile, visible on desktop */}
       <div className="hidden md:flex w-1/2 bg-purple-600 items-center justify-center">
         <img
           src="/assets/reset-password-hero.jpg"

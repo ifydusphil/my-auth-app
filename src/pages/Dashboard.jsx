@@ -1,14 +1,14 @@
 import useAuthStore from "../store/authStore";
-import toast from "react-hot-toast"; // ✅ Import toast
+import toast from "react-hot-toast"; // Import toast
 
 export default function Dashboard() {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
 
-  // ✅ Handle logout with toast
+  // Handle logout with toast
   const handleLogout = () => {
     logout();
-    toast.success("✅ Logged out successfully!");
+    toast.success("Logged out successfully!");
   };
 
   return (
